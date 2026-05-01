@@ -67,6 +67,16 @@ export class SettingsComponent implements OnInit {
 
             // group elements by section
             data.forEach(element => {
+                // remove html tags, if any
+                if(element.hasOwnProperty('section_id') && element.section_id.hasOwnProperty('description')) {
+                    element.section_id.description = element.section_id.description.replace(/<\/?[^>]+(>|$)/g, "");
+                }
+                if(element.hasOwnProperty('description')) {
+                    element.description = element.description.replace(/<\/?[^>]+(>|$)/g, "");
+                }
+                if(element.hasOwnProperty('help')) {
+                    element.help = element.help.replace(/<\/?[^>]+(>|$)/g, "");
+                }
                 if(!this.sectionsMap.hasOwnProperty(element.section_id.code)) {
                     this.sectionsMap[element.section_id.code] = [];
                     this.sections.push(element.section_id);

@@ -14,7 +14,8 @@
 
                 <div class="wrapper">
                     <div *ngFor="let setting of sectionsMap[section.code]" style="width: 100%;">
-                        <app-widget-input  [setting]="setting" *ngIf="setting.form_control == 'input'"></app-widget-input>
+                        <app-widget-input [setting]="setting" *ngIf="setting.form_control == 'input'"></app-widget-input>
+                        <app-widget-textarea [setting]="setting" *ngIf="setting.form_control == 'textarea'"></app-widget-textarea>
                         <app-widget-toggle [setting]="setting" *ngIf="setting.form_control == 'toggle'"></app-widget-toggle>
                         <app-widget-select [setting]="setting" *ngIf="setting.form_control == 'select'" [choices]="setting.setting_choices_ids"></app-widget-select>
                     </div>

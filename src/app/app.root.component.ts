@@ -67,13 +67,12 @@ export class AppRootComponent implements OnInit {
         }
 
         this.params.pathParam.subscribe( async (param:any) => {
-            if(param.hasOwnProperty('package') && param.hasOwnProperty('app')) {
+            if(param.hasOwnProperty('package') && param.hasOwnProperty('app') && param.package.length && param.app.length) {
                 this.package = param.package;
                 this.app = param.app;
                 try {
                     const appinfo:any = await this.api.fetch('?get=appinfo&package='+this.package+'&app='+this.app);
                     if(appinfo) {
-                        console.log(appinfo);
                         if(appinfo.hasOwnProperty('params') && appinfo.params.hasOwnProperty('menus')) {
                             if(appinfo.params.menus.hasOwnProperty('left')) {
                                 this.left_menu_id = appinfo.params.menus.left;
@@ -97,6 +96,7 @@ export class AppRootComponent implements OnInit {
             }
         });
 
+        // #todo - use a Promise and EventEmitter instead of timeout
         setTimeout( async () => {
             const data = await this.api.getMenu(this.package, this.left_menu_id);
             this.show_search_side_menu = data.show_search;
